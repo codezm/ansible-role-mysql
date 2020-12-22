@@ -1,0 +1,74 @@
+---
+# tasks file for mysql
+# https://dev.mysql.com/doc/mysql-repo-excerpt/8.0/en/linux-installation-yum-repo.html
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/yum_module.html
+- name: Disable mysql module
+  command:
+    cmd: >
+      {{ item }}
+    warn: false
+  with_items:
+    - yum module -y disable mysql
+
+- name: Copy mysql repo file
+  copy:
+    src: "{{ _mysql_repo_file }}"
+    dest: "/etc/yum.repos.d/mysql-community.repo"
+    mode: 0644
+  when:
+    - _mysql_repo_file is defined
+    - _mysql_repo_type == "file"
+
+- name: Install mysql rpm file
+  yum:
+    name: "{{ _mysql_package_name }}"
+    disable_gpg_check: True
+    state: present
+  when:
+    - _mysql_repo_file is defined
+    - _mysql_repo_type == "rpm"
+
+- name: Install mysql by repo
+  yum:
+    name: mysql-community-server
+    disable_gpg_check: True
+    state: present
+  when: _mysql_repo_file is defined
+
+- name: Handle mysql package file
+  include_tasks: "../../packages.yml"
+  vars:
+    skipUnarchive: true
+    packageInstallWay: "{{ _mysql_install_way }}"
+    packageName: "{{ _item }}-{{ _mysql_version }}"
+    unpackName: "{{ _item }}-{{ _mysql_version }}"
+    downloadUrl: "{{ _mysql_download_url_prefix }}{{ _item }}-{{ _mysql_version }}"
+    downloadTimeout: "{{ __ansible_get_url_timeout }}"
+    savePath: "{{ __package_tmp_save_dir }}"
+  loop_control:
+    loop_var: _item
+  with_items:
+    - "{{ _mysql_download_lists | list }}"
+  when: _mysql_repo_file is undefined
+
+- name: Install mysql by package file
+  command:
+    cmd: >
+      yum install -y {{ item }}-{{ _mysql_version }}
+    chdir: "{{ __package_tmp_save_dir }}"
+    warn: false
+  with_items:
+    - "{{ _mysql_download_lists | list }}"
+  when: _mysql_repo_file is undefined
+
+- name: Copy the mysql configuration file
+  template:
+    src: my.cnf.j2
+    dest: "{{ _mysql_configure_file }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - enable mysqld
+    - start mysqld
+  tags: [configuration, my.cnf]

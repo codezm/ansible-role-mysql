@@ -1,0 +1,39 @@
+---
+# vars file for mysql
+
+##### The official START #####
+#https://dev.mysql.com/get/mysql80-community-release-el6-3.noarch.rpm
+#https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
+#https://dev.mysql.com/get/mysql80-community-release-el8-1.noarch.rpm
+
+#https://cdn.mysql.com/archives/mysql-8.0/mysql-community-server-8.0.21-1.el8.x86_64.rpm
+#https://cdn.mysql.com/archives/mysql-8.0/mysql-community-client-8.0.21-1.el8.x86_64.rpm
+#https://cdn.mysql.com/archives/mysql-5.7/mysql-community-server-5.7.31-1.el7.x86_64.rpm
+#https://cdn.mysql.com/archives/mysql-5.7/mysql-community-client-5.7.31-1.el7.x86_64.rpm
+##### The official END #####
+
+#http://mirrors.ustc.edu.cn/mysql-repo/mysql80-community-release-el8-1.noarch.rpm
+#http://mirrors.ustc.edu.cn/mysql-ftp/Downloads/MySQL-8.0/mysql-community-server-8.0.22-1.el8.x86_64.rpm
+#http://mirrors.ustc.edu.cn/mysql-ftp/Downloads/MySQL-8.0/mysql-community-server-8.0.21-1.el8.x86_64.rpm
+
+# if set _mysql_repo_file variable will be preferred to use.
+# The file type will use _mysql_repo_file variable, The rpm type will use _mysql_package_name variable.
+#_mysql_repo_type: "file"
+# repo file by upload
+#_mysql_repo_file: "mysql-community-RHEL-8.repo"
+# repo file by install
+#_mysql_package_name: "http://mirrors.ustc.edu.cn/mysql-repo/mysql80-community-release-el8-1.noarch.rpm"
+
+_mysql_version: "8.0.22-1.el8.x86_64.rpm"
+_mysql_download_url_prefix: "http://mirrors.ustc.edu.cn/mysql-ftp/Downloads/MySQL-8.0/"
+
+# http://mirrors.ustc.edu.cn/mysql-ftp/Downloads/MySQL-8.0/mysql-community-client-8.0.22-1.el8.x86_64.rpm
+_mysql_download_lists:
+  - mysql-community-client
+  - mysql-community-client-plugins
+  - mysql-community-common
+  - mysql-community-libs
+  - mysql-community-server
+
+_mysql_install_way: "{% if env_install_way is defined %}{{ env_install_way }}{% else %}network{% endif %}"
+_mysql_configure_file: "/etc/my.cnf"
