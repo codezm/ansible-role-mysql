@@ -10,7 +10,15 @@ RHEL/CentOS：7、8
 Role Variables
 --------------
 
-涉及变量在 `vars/main.yml` 文件中
+| Variables                 |  Description                                                                  |
+| ------------------------- | ----------------------------------------------------------------------------- |
+| __ansible_get_url_timeout | `wget` 命令超时时间                                                           |
+| __package_tmp_save_dir    | 目标服务器临时目录                                                            |
+| __clean_origin_file       | true: 代表清除原始文件，false: 代表保留                                       |
+| env_install_way           | 安装方式。file: 文件模式（将从 `files` 目录拷贝），network: 从网络下载（默认）|
+
+
+其余涉及变量在 `vars/main.yml` 文件中
 
 Dependencies
 ------------
@@ -37,4 +45,4 @@ Example Playbook
 License
 -------
 
-BSD
+MIT
