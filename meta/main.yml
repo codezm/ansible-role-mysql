@@ -1,7 +1,7 @@
 galaxy_info:
   role_name: mysql
   author: codezm
-  description: Mysql Sever for RHEL/CentOS.
+  description: Mysql Server for RHEL/CentOS.
   license: license (MIT)
   min_ansible_version: 2.10
   platforms:
