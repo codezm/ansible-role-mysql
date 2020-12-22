@@ -50,7 +50,7 @@
   loop_control:
     loop_var: _item
   with_items:
-    - "{{ _mysql_download_lists | list }}"
+    - "{{ _mysql_download_lists }}"
   when: _mysql_repo_file is undefined
 
 - name: Install mysql by package file
@@ -60,7 +60,7 @@
     chdir: "{{ __package_tmp_save_dir }}"
     warn: false
   with_items:
-    - "{{ _mysql_download_lists | list }}"
+    - "{{ _mysql_download_lists }}"
   when: _mysql_repo_file is undefined
 
 - name: Copy the mysql configuration file

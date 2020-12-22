@@ -29,10 +29,10 @@ _mysql_download_url_prefix: "http://mirrors.ustc.edu.cn/mysql-ftp/Downloads/MySQ
 
 # http://mirrors.ustc.edu.cn/mysql-ftp/Downloads/MySQL-8.0/mysql-community-client-8.0.22-1.el8.x86_64.rpm
 _mysql_download_lists:
-  - mysql-community-client
-  - mysql-community-client-plugins
   - mysql-community-common
+  - mysql-community-client-plugins
   - mysql-community-libs
+  - mysql-community-client
   - mysql-community-server
 
 _mysql_install_way: "{% if env_install_way is defined %}{{ env_install_way }}{% else %}network{% endif %}"
