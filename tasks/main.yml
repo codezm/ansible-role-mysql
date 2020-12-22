@@ -36,7 +36,9 @@
   when: _mysql_repo_file is defined
 
 - name: Handle mysql package file
-  include_tasks: "../../packages.yml"
+  include_role:
+    name: codezm.common
+    tasks_from: packages
   vars:
     skipUnarchive: true
     packageInstallWay: "{{ _mysql_install_way }}"
