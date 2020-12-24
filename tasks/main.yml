@@ -74,3 +74,21 @@
     - enable mysqld
     - start mysqld
   tags: [configuration, my.cnf]
+
+- name: Clean source file
+  include_role:
+    name: codezm.common
+    tasks_from: clean
+  vars:
+    name: "{{ _item }}"
+    path: "{{ __package_tmp_save_dir }}{{ _item }}-{{ _mysql_version }}"
+  loop_control:
+    loop_var: _item
+  with_items:
+    - "{{ _mysql_download_lists }}"
+  when:
+    - __clean_origin_file == true
+    - _mysql_repo_file is undefined
+  tags:
+    - clean-mysql
+    - clean
