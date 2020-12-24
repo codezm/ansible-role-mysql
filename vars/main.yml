@@ -24,6 +24,7 @@
 # repo file by install
 #_mysql_package_name: "http://mirrors.ustc.edu.cn/mysql-repo/mysql80-community-release-el8-1.noarch.rpm"
 
+#### MySQL-8.0 START ####
 _mysql_version: "8.0.22-1.el8.x86_64.rpm"
 _mysql_download_url_prefix: "http://mirrors.ustc.edu.cn/mysql-ftp/Downloads/MySQL-8.0/"
 
@@ -34,6 +35,19 @@ _mysql_download_lists:
   - mysql-community-libs
   - mysql-community-client
   - mysql-community-server
+#### MySQL-8.0 END ####
+
+#### MySQL-5.7 START ####
+#_mysql_version: "5.7.32-1.el7.x86_64.rpm"
+#_mysql_download_url_prefix: "http://mirrors.ustc.edu.cn/mysql-ftp/Downloads/MySQL-5.7/"
+
+## http://mirrors.ustc.edu.cn/mysql-ftp/Downloads/MySQL-5.7/mysql-community-client-5.7.32-1.el7.x86_64.rpm
+#_mysql_download_lists:
+  #- mysql-community-common
+  #- mysql-community-libs
+  #- mysql-community-client
+  #- mysql-community-server
+#### MySQL-5.7 END ####
 
 _mysql_install_way: "{% if env_install_way is defined %}{{ env_install_way }}{% else %}network{% endif %}"
 _mysql_configure_file: "/etc/my.cnf"
