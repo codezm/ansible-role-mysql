@@ -35,6 +35,11 @@
     state: present
   when: _mysql_repo_file is defined
 
+- name: Set workaround
+  set_fact:
+    # __sourcePath
+    sourcePath: "{{ role_path }}/files"
+
 - name: Handle mysql package file
   include_role:
     name: codezm.common
@@ -47,6 +52,7 @@
     downloadUrl: "{{ _mysql_download_url_prefix }}{{ _item }}-{{ _mysql_version }}"
     downloadTimeout: "{{ __ansible_get_url_timeout }}"
     savePath: "{{ __package_tmp_save_dir }}"
+    #sourcePath: "{{ __sourcePath }}"
   loop_control:
     loop_var: _item
   with_items:
