@@ -25,7 +25,7 @@
 #_mysql_package_name: "http://mirrors.ustc.edu.cn/mysql-repo/mysql80-community-release-el8-1.noarch.rpm"
 
 #### MySQL-8.0 START ####
-_mysql_version: "8.0.22-1.el8.x86_64.rpm"
+_mysql_version: "{% if mysql_version is defined %}{{ mysql_version }}{% else %}8.0.22-1.el8.x86_64.rpm{% endif %}"
 _mysql_download_url_prefix: "http://mirrors.ustc.edu.cn/mysql-ftp/Downloads/MySQL-8.0/"
 
 # http://mirrors.ustc.edu.cn/mysql-ftp/Downloads/MySQL-8.0/mysql-community-client-8.0.22-1.el8.x86_64.rpm
